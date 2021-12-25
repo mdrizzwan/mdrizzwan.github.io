@@ -153,13 +153,13 @@
             var vaccine = document.getElementById("vaccine")
             //Terms and condition part
             var agree = document.getElementById("agree")
+
             //Form submission part
             var submit = document.getElementById("submit")
 
             //Data function
 
-            function submitForm(){
-                e.preventDefault();
+            function InsertData(){
                 set(ref(db),{
                     Name: name.value,
                     People: people.value,
@@ -187,26 +187,8 @@
                });
             }
 
-                // Save message
-                saveMessage(Name, People, ID, IC, Gender, Age, Contact, Address, Fever, Cough, Diff, Loss, Attend, Travel, Close, Vaccine);
-            
-                // Show alert
-                document.querySelector('.alert').style.display = 'block';
-            
-                // Hide alert after 3 seconds
-                setTimeout(function(){
-                document.querySelector('.alert').style.display = 'none';
-                },3000);
-            
-                // Clear form
-                document.getElementById('contactForm').reset();
-                
-                // Function to get get form values
-                function getInputVal(id){
-                return document.getElementById(id).value;}
-
             //Assign events to button
-            submit.addEventListener('submit',submitForm);
+            submit.addEventListener('click',InsertData);
 
         </script>
     </body> 
