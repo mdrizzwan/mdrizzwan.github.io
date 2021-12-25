@@ -132,16 +132,7 @@
             
             const db = getDatabase();
 
-
-            //Assign events to button
-            submit.addEventListener('submit',submitForm);
-
-            //Data function
-
-            function submitForm(e){
-                e.preventDefault();
-            
-            //Reference
+        //Reference
             //General information
             var name = document.getElementById("name");
             var people = document.getElementById("people");
@@ -164,34 +155,29 @@
             var agree = document.getElementById("agree")
             //Form submission part
             var submit = document.getElementById("submit")
-        
-            // Save message
-            saveMessage(Name, People, ID, IC, Gender, Age, Contact, Address, Fever, Cough, Difficulty, Loss, Attend, Travel, Close, Vaccine);
-                
-        // Function to get get form values
-             function getInputVal(id){
-            return document.getElementById(id).value;}
 
-            function saveMessage(Name, People, ID, IC, Gender, Age, Contact, Address, Fever, Cough, Difficulty, Loss, Attend, Travel, Close, Vaccine){
-            var newMessageRef = messagesRef.push();
-            newMessageRef.set({
-                Name: name.value,
-                People: people.value,
-                ID: ID.value,
-                IC: IC.value,
-                Gender: gender.value,
-                Age: age.value,
-                Contact: phone.value,
-                Address: address.value,
-                Fever: fever.value,
-                Cough: cough.value,
-                Difficulty : diff.value,
-                Loss : loss.value,
-                Attend : attend.value,
-                Travel : travel.value,
-                Close : close.value,
-                Vaccine: vaccine.value,
-                Agree: agree.value
+            //Data function
+
+            function submitForm(){
+                e.preventDefault();
+                set(ref(db),{
+                    Name: name.value,
+                    People: people.value,
+                    ID: ID.value,
+                    IC: IC.value,
+                    Gender: gender.value,
+                    Age: age.value,
+                    Contact: phone.value,
+                    Address: address.value,
+                    Fever: fever.value,
+                    Cough: cough.value,
+                    Diff : diff.value,
+                    Loss : loss.value,
+                    Attend : attend.value,
+                    Travel : travel.value,
+                    Close : close.value,
+                    Vaccine: vaccine.value,
+                    Agree: agree.value
                 })
                 .then(()=>{
                     alert("data stored successfully");
@@ -199,7 +185,28 @@
                 .catch((error)=>{
                     alert("unsuccessful, error"+error);
                });
-               ;}
+            }
+
+                // Save message
+                saveMessage(Name, People, ID, IC, Gender, Age, Contact, Address, Fever, Cough, Diff, Loss, Attend, Travel, Close, Vaccine);
+            
+                // Show alert
+                document.querySelector('.alert').style.display = 'block';
+            
+                // Hide alert after 3 seconds
+                setTimeout(function(){
+                document.querySelector('.alert').style.display = 'none';
+                },3000);
+            
+                // Clear form
+                document.getElementById('contactForm').reset();
+                
+                // Function to get get form values
+                function getInputVal(id){
+                return document.getElementById(id).value;}
+
+            //Assign events to button
+            submit.addEventListener('submit',submitForm);
 
         </script>
     </body> 
