@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>COVID-19 Self-Declaration System</title>
@@ -19,21 +19,90 @@
     <!--Start of second section-->
     <h3>PERSONAL INFORMATION</h3>
         <label>Name:</label> <input id="name" type ="text" required><br>
+        <p>    
         <label>Staff/Student/Visitor:</label>
             <select id ="people">
                 <option value = "Staff">Staff</option>
                 <option value = "Student">Student</option>
                 <option value = "Visitor">visitor</option></select>
-        <label>Stafff ID/Student Matric No.:</label> <input id="ID" type ="text" required><br><br>
+        </p>        
+        <label>Staff ID/Student Matric No.:</label> <input id="ID" type ="text" required><br><br>
         <label>IC/Passport No.:</label> <input id="IC" type ="text" required><br><br>
+        <p>
         <label>Gender:</label>
         <select id ="gender">
             <option value = "Male">Male</option>
             <option value = "Female">Female</option></select>
+        </p>
         <label>Age:</label> <input id="age" type ="number" required>
         <label>Contact Number:</label> <input id="phone" type ="number" required><br><br>
+        <p>
         <label>Address:</label><p> <textarea id="address" name="address" cols="60" rows="5" required></textarea></p>
+        </p>
+    
+    <!--Risk Assessment-->
+    <br>
+    <br><hr>
+    <h3>RISK ASSESSMENT</h3>
+    <ol>
+    
+    <li>
+        Do you have any of the following symptom?
+        <p>
+            <label>Fever (37.5 C or higher):</label>
+            <select id ="fever">
+                <option value = "Yes">Yes</option>
+                <option value = "No">No</option></select>
+        </p>
+            <label>Cough:</label>
+            <select id ="cough">
+                <option value = "Yes">Yes</option>
+                <option value = "No">No</option></select>
+        <p>
+            <label>Difficulty Breathing:</label>
+            <select id ="diff">
+                <option value = "Yes">Yes</option>
+                <option value = "No">No</option></select>
+        </p>
+            <label>Loss of smell and/or taste:</label>
+            <select id ="loss">
+                <option value = "Yes">Yes</option>
+                <option value = "No">No</option></select>
+        </p></li>
+    
+    <li><p>
+        <label>Have you attended any event/areas associated with known Covid-19 cluster?</label>
+        <select id ="attend">
+            <option value = "Yes">Yes</option>
+            <option value = "No">No</option></select>
+    </p></li>
+    
+    <li><p>
+        <label>Have you travel to any country outside of Malaysia within 14 days before onset of symptoms?</label>
+        <select id ="travel">
+            <option value = "Yes">Yes</option>
+            <option value = "No">No</option></select>    
+    </p></li>
+    
+    <li><p>
+        <label>Have you had close contact to confirmed or suspected case of Covid-19 within 14 days before onset of illness?</label>
+        <select id ="close">
+            <option value = "Yes">Yes</option>
+            <option value = "No">No</option></select>
+    </p></li>
+    
+    <li><p>
+        <label>Have you completed your vaccination?</label>
+        <select id ="vaccine">
+            <option value = "Yes">Yes</option>
+            <option value = "No">No</option></select>
+    </p></li>
+    </ol>
 
+    <footer>
+        <label>I hereby that all information above is true and agree to all the conditions of the form:</label>
+        <input type="checkbox" id="agree" required>
+    
     <!--Submit form-->
         <hr>
         <button id = "submit">SUBMIT</button>
@@ -63,7 +132,8 @@
             
             const db = getDatabase();
 
-            // Reference 
+        //Reference
+            //General information
             var name = document.getElementById("name");
             var people = document.getElementById("people");
             var matrix = document.getElementById("ID");
@@ -72,13 +142,24 @@
             var age = document.getElementById("age");
             var phone = document.getElementById("phone");
             var address = document.getElementById("address");
-
+            // Risk assessment part
+            var fever = document.getElementById("fever")
+            var cough = document.getElementById("cough")
+            var diff = document.getElementById("diff")
+            var loss = document.getElementById("loss")
+            var attend = document.getElementById("attend")
+            var travel = document.getElementById("travel")
+            var close = document.getElementById("close")
+            var vaccine = document.getElementById("vaccine")
+            //Terms and condition part
+            var agree = document.getElementById("agree")
+            //Form submission part
             var submit = document.getElementById("submit")
 
             //Data function
 
             function InsertData(){
-                set(ref(db, "People/"+ people.value),{
+                set(ref(db),{
                     Name: name.value,
                     People: people.value,
                     ID: ID.value,
@@ -86,7 +167,16 @@
                     Gender: gender.value,
                     Age: age.value,
                     Contact: phone.value,
-                    Address: address.value
+                    Address: address.value,
+                    Fever: fever.value,
+                    Cough: cough.value,
+                    Diff : diff.value,
+                    Loss : loss.value,
+                    Attend : attend.value,
+                    Travel : travel.value,
+                    Close : close.value,
+                    Vaccine: vaccine.value,
+                    Agree: agree.value
                 })
                 .then(()=>{
                     alert("data stored successfully");
